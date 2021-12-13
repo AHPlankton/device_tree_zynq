@@ -34,12 +34,12 @@
 		};
 		axi_dma_0: dma@7fff8000 {
 			#dma-cells = <1>;
-			clock-names = "s_axi_lite_aclk", "m_axi_mm2s_aclk", "m_axi_s2mm_aclk";
-			clocks = <&clkc 15>, <&clkc 16>, <&clkc 16>;
+			clock-names = "s_axi_lite_aclk", "m_axi_mm2s_aclk";
+			clocks = <&clkc 15>, <&clkc 15>;
 			compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
-			interrupt-names = "mm2s_introut", "s2mm_introut";
+			interrupt-names = "mm2s_introut";
 			interrupt-parent = <&intc>;
-			interrupts = <0 54 4 0 55 4>;
+			interrupts = <0 54 4>;
 			reg = <0x7fff8000 0x8000>;
 			xlnx,addrwidth = <0x20>;
 			xlnx,sg-length-width = <0xe>;
@@ -47,16 +47,18 @@
 				compatible = "xlnx,axi-dma-mm2s-channel";
 				dma-channels = <0x1>;
 				interrupts = <0 54 4>;
-				xlnx,datawidth = <0x20>;
+				xlnx,datawidth = <0x40>;
 				xlnx,device-id = <0x0>;
+				xlnx,include-dre ;
 			};
-			dma-channel@7fff8030 {
-				compatible = "xlnx,axi-dma-s2mm-channel";
-				dma-channels = <0x1>;
-				interrupts = <0 55 4>;
-				xlnx,datawidth = <0x20>;
-				xlnx,device-id = <0x0>;
-			};
+		};
+		axi_lite_test_0: axi_lite_test@40000000 {
+			clock-names = "s00_axi_aclk";
+			clocks = <&clkc 15>;
+			compatible = "xlnx,axi-lite-test-1.0";
+			reg = <0x40000000 0x10000>;
+			xlnx,s00-axi-addr-width = <0x4>;
+			xlnx,s00-axi-data-width = <0x20>;
 		};
 		clk_wiz_0: clk_wiz@43c10000 {
 			#clock-cells = <1>;
